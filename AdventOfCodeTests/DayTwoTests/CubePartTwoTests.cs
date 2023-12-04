@@ -25,6 +25,6 @@ public class CubePartTwoTests
         var bigGame = File.ReadAllText("DayTwoTests/game.txt");
         var cube = new CubePartTwo(bigGame);
         var s = cube.Solve();
-        Assert.Equal(2416, s);
+        Assert.Equal(63307, s);
     }
 }
