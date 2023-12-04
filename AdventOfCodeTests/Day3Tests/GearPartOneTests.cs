@@ -170,7 +170,7 @@ public class GearPartOneTests
 """;
         
         var gear = new GearPartOne(grid);
-        Assert.Equal(4361, gear.Solve());
+        Assert.Equal(521515, gear.Solve());
     }
     
 }

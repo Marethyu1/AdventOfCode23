@@ -87,6 +87,28 @@ public class Grid
                     }
                 }
             }
+            if (stack.Count > 0)
+            {
+                var l = new List<char>();
+                var shouldTrack = stack.Any(x => x.Marked);
+                    
+                    
+                while (stack.Count > 0)
+                {
+                    var value = stack.Pop().Value;
+                    if (shouldTrack)
+                    {
+                        l.Add(value);
+                    }
+                }
+
+                if (l.Any())
+                {
+                    l.Reverse();
+                    var parsedInt =  int.Parse(string.Join("", l));
+                    ints.Add(parsedInt);
+                }
+            }
         }
         
        
