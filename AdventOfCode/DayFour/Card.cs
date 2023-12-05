@@ -41,7 +41,20 @@ public class Card : IParsable<Card>
         return $"{CardNumber}";
     }
 
-    public int MatchingNumbers => ScratchNumbers.Count(n => WinningNumbers.Contains(n));
+    private int _matchingNumbers { get; set; } = -1;
+
+    public int MatchingNumbers
+    {
+        get
+        {
+            if (_matchingNumbers == -1)
+            {
+                _matchingNumbers = ScratchNumbers.Count(n => WinningNumbers.Contains(n));
+            }
+
+            return _matchingNumbers;
+        }
+    }
 
     public int Score()
     {
