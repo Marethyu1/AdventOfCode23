@@ -29,7 +29,7 @@ public class GearPartTwoTests
     {
         var engine = File.ReadAllText("Day3Tests/engine.txt");
         var gear = new GearPartTwo(engine);
-        Assert.Equal(1, gear.Solve());
+        Assert.Equal(69527306, gear.Solve());
 
     }
 }
