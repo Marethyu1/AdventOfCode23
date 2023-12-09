@@ -30,6 +30,11 @@ public class Day5Tests
         Assert.Equal(expected, _seedMap.Evaluate(input));
     }
 
+    [Fact]
+    public void CanEvaluateRange()
+    {
+        _seedMap.GetValues(5, 1000);
+    }
 
     [Fact]
     public void CanSoleBasicSeedMap()
@@ -38,12 +43,27 @@ public class Day5Tests
         Assert.Equal(35,solution.Solve());
         
     }
+
+    [Fact]
+    public void CanSolveBasicSeedMapPart2()
+    {
+        var solution  = SeedSolutionPart2.Parse(File.ReadAllText("Day5Tests/basic.txt"), null);
+        Assert.Equal(46,solution.Solve());
+    }
     
     
     [Fact]
     public void CanSolveBigBoy()
     {
         var solution  = SeedSolution.Parse(File.ReadAllText("Day5Tests/big.txt"), null);
+        Assert.Equal(174137457,solution.Solve());
+        
+    }
+    
+    [Fact]
+    public void CanSolveBigBoyPart2()
+    {
+        var solution  = SeedSolutionPart2.Parse(File.ReadAllText("Day5Tests/big.txt"), null);
         Assert.Equal(174137457,solution.Solve());
         
     }

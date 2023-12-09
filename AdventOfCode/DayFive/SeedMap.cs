@@ -8,7 +8,7 @@ public class SeedMap: IParsable<SeedMap>
     public SeedMap(string name, List<MapRange> ranges)
     {
         _name = name;
-        _ranges = ranges;
+        _ranges = ranges.OrderBy(o => o.SourceRangeStart).ToList();
     }
 
     public long Evaluate(long i)
@@ -22,6 +22,30 @@ public class SeedMap: IParsable<SeedMap>
         }
 
         return i;
+    }
+
+    public List<long> GetValues(long startIndex, long range)
+    {
+        var values = _ranges.Where(x => x.SourceRangeStart >= startIndex && x.SourceRangeStart <= startIndex + range)
+            .Select(x => x.SourceRangeStart)
+            .ToArray();
+
+        if (values.Length == 0)
+        {
+            values = values.Append(startIndex).ToArray();
+        }
+        else if (values[0] > startIndex)
+        {
+            values = values.Prepend(startIndex).ToArray();
+        }
+        
+        if (values.Length > 0 && values[^1] < startIndex + range)
+        {
+            var add = _ranges.First(x => x.SourceRangeStart == values[^1]);
+            values = values.Append(values[^1] + add.RangeLength + 1).ToArray();
+        }
+
+        return values.ToList();
     }
 
     public override string ToString()
