@@ -1,12 +1,11 @@
 namespace AdventOfCode.DayEight;
 
-public class WastelandSolution: ISolution<int>
+public class WastelandSolutionPart2: ISolution<int>
 {
     private readonly Graph _graph;
     private readonly char[] _input;
     
-    
-    public WastelandSolution(string path)
+    public WastelandSolutionPart2(string path)
     {
         var lines = File.ReadAllLines(path)
             .Select(x => x.Trim())
@@ -18,9 +17,13 @@ public class WastelandSolution: ISolution<int>
 
         _graph = builder.Build();
     }
-    
     public int Solve()
     {
+        var nodes = _graph.Nodes(key => key.EndsWith("A"));
+        
+        
+         
+        
         var current = _graph.StartNode;
         var counter = 0;
         while (!Equals(current, _graph.EndNode))
