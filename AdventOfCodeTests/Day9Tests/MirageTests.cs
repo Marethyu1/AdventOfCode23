@@ -37,6 +37,20 @@ public class MirageTests
     public void CanSolveBigBoy()
     {
         var solution = new MirageSolution("Day9Tests/9-2.txt");
-        Assert.Equal(114, solution.Solve());
+        Assert.Equal(1581679977, solution.Solve());
+    }
+    
+    [Fact]
+    public void CanSolvePart2Basic()
+    {
+        var solution = new MirageSolution2("Day9Tests/9-1.txt");
+        Assert.Equal(2, solution.Solve());
+    }
+
+    [Fact]
+    public void CanSolvePart2()
+    {
+        var solution = new MirageSolution2("Day9Tests/9-2.txt");
+        Assert.Equal(889, solution.Solve());
     }
 }

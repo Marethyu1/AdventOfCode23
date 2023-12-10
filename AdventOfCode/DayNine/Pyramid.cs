@@ -45,6 +45,26 @@ public class Pyramid
         return _rows.Sum(x => x[^1]);
     }
 
+    public long PredictFirstValue()
+    {
+        
+        foreach (var longs in _rows)
+        {
+            longs.Insert(0, 0);
+        }
+
+        var start = 0;
+        for (var i = _rows.Count - 1; i > 0; i--)
+        {
+            var current = _rows[i][0];
+            var prev = _rows[i-1][1];
+            _rows[i - 1][0] = prev - current;
+
+        }
+
+        return _rows[0][0];
+    }
+
     public static Pyramid Parse(string line)
     {
         var nums = line.Split(" ")
