@@ -1,10 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using AdventOfCode;
-using AdventOfCode.DayEight;
-using AdventOfCode.DayFive;
+using AdventOfCode.DayNine;
 
 // var solution  = SeedSolutionPart2.Parse(File.ReadAllText("input.txt"), null);
-var solution = new WastelandSolutionPart2("input.txt");
+var solution = new MirageSolution("input.txt");
 
-solution.Solve();
+Console.WriteLine(solution.Solve());
