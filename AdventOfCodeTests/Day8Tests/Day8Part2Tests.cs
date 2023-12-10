@@ -10,4 +10,11 @@ public class Day8Part2Tests
         var solution = new WastelandSolutionPart2("Day8Tests/8-1-4.txt");
         Assert.Equal(6, solution.Solve());
     }
+    
+    [Fact]
+    public void CanSolveBigBoy()
+    {
+        var solution = new WastelandSolutionPart2("Day8Tests/8-1-3.txt");
+        Assert.Equal(7309459565207, solution.Solve());
+    }
 }

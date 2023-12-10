@@ -5,6 +5,6 @@ using AdventOfCode.DayEight;
 using AdventOfCode.DayFive;
 
 // var solution  = SeedSolutionPart2.Parse(File.ReadAllText("input.txt"), null);
-ISolution<int> solution = new WastelandSolution("input.txt");
+var solution = new WastelandSolutionPart2("input.txt");
 
 solution.Solve();

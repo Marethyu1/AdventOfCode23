@@ -1,6 +1,6 @@
 namespace AdventOfCode.DayEight;
 
-public class WastelandSolutionPart2: ISolution<int>
+public class WastelandSolutionPart2: ISolution<long>
 {
     private readonly Graph _graph;
     private readonly char[] _input;
@@ -17,28 +17,50 @@ public class WastelandSolutionPart2: ISolution<int>
 
         _graph = builder.Build();
     }
-    public int Solve()
+    public long Solve()
     {
-        var nodes = _graph.Nodes(key => key.EndsWith("A"));
-        
-        
-         
-        
-        var current = _graph.StartNode;
-        var counter = 0;
-        while (!Equals(current, _graph.EndNode))
+        var nodes = _graph.Nodes(key => key.EndsWith("A"))
+            .ToList();
+
+        var cycles = new List<long>();
+
+        foreach (var node in nodes)
         {
-            var nextMove = _input[counter % _input.Length];
+            var currentNode = node;
+            var counter = 0;
 
-            var next = current.Lhs;
-            if (nextMove == 'R')
+            while (!currentNode.Current.EndsWith("Z"))
             {
-                next = current.Rhs;
+                var nextMove = _input[counter % _input.Length];
+                Func<char, Node, Node> next = (c, n) => c == 'L' ? _graph.Lookup(n.Lhs) : _graph.Lookup(n.Rhs);
+                currentNode = next(nextMove, currentNode);
+                counter++;
             }
-
-            current = _graph.Lookup(next);
-            counter++;
+            cycles.Add(counter);
         }
-        return counter;
+
+        var lcm = cycles[0];
+        for (var i = 1; i < cycles.Count; i++)
+        {
+            lcm = Lcm(lcm, cycles[i]);
+        }
+        
+        return cycles.Aggregate(Lcm);
+    }
+    
+    private static long Gcf(long a, long b)
+    {
+        while (b != 0)
+        {
+            long temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+
+    private static long Lcm(long a, long b)
+    {
+        return (a / Gcf(a, b)) * b;
     }
 }

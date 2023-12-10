@@ -16,13 +16,11 @@ public class Graph
             .ToDictionary(x => x.Current, node => node);
     }
     
-    public List<Tuple<string, string>> Nodes(Func<string, bool> filter)
+    public IEnumerable<Node> Nodes(Func<string, bool> filter)
     {
-        throw new NotImplementedException();
-        // return _map.Keys
-        //     .Where(filter)
-        //     .Select(x => _map[x])
-        //     .ToList();
+        return _map.Keys
+            .Where(filter)
+            .Select(x => _map[x]);
     }
 
     public Node Lookup(string next)
