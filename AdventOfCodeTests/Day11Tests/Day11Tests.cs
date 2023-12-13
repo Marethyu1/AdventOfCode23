@@ -59,7 +59,7 @@ public class Day11Tests
 
         var galaxy = Galaxy.ToGalaxy(input);
 
-        var newGalaxy = galaxy.Expand();
+        var newGalaxy = galaxy.Expand(2);
         
         
         Assert.Equal(output.ReplaceLineEndings(), newGalaxy.ToString().ReplaceLineEndings().Trim());
@@ -85,6 +85,6 @@ public class Day11Tests
     {
         var g = Galaxy.ToBigBrainGalaxy(defaultInput);
         var cp = g.DeterminePairsOfGalaxies();
-        Assert.Equal(374, cp.Sum(x => x.DetermineDistance()));
+        Assert.Equal(374, cp.Sum(x => g.DetermineDistance(x)));
     }
 }

@@ -55,22 +55,24 @@ public class Galaxy
 
     }
 
-    public Galaxy Expand()
+    public Galaxy Expand(int amount)
     {
-        var rowExpanded = ExpandRows(_characters);
-        var columnExpanded = ExpandColumns(rowExpanded);
+        var rowExpanded = ExpandRows(_characters, amount);
+        var columnExpanded = ExpandColumns(rowExpanded, amount);
         return new Galaxy(columnExpanded);
     }
 
-    private static Location[][] ExpandRows(Location[][] chars)
+    private static Location[][] ExpandRows(Location[][] chars, int amount)
     {
         var output = new List<Location[]>();
         foreach (var c in chars)
         {
             if (c.All(x => x.Empty))
             {
-                var row = c.Select(x => new Location(x.Value)).ToArray();
-                output.Add(row);
+                foreach (var location in c)
+                {
+                    location.Amount = amount;
+                }
             }
             output.Add(c);
         }
@@ -78,10 +80,10 @@ public class Galaxy
         return output.ToArray();
     }
 
-    private static Location[][] ExpandColumns(Location[][] chars)
+    private static Location[][] ExpandColumns(Location[][] chars, int amount)
     {
         var rows = chars.Transpose();
-        var transposed = ExpandRows(rows);
+        var transposed = ExpandRows(rows, amount);
         return transposed.Transpose();
     }
 
@@ -100,7 +102,35 @@ public class Galaxy
 
     public static Galaxy ToBigBrainGalaxy(string input)
     {
-        return ToGalaxy(input).Expand();
+        return ToGalaxy(input).Expand(1000000);
+    }
+
+    public long DetermineDistance(Pair pair)
+    {
+        var coord1 = pair.Item1;
+        var coord2 = pair.Item2;
+
+        long count = 0;
+        var currentX = 0;
+        
+        var currentXValue = coord1.X;
+        var currentYValue = coord1.Y;
+        var xDirection = coord1.X < coord2.X ? 1 : -1;
+        while (currentXValue != coord2.X)
+        {
+            count += _characters[currentXValue][currentYValue].Amount;
+            currentXValue += xDirection;
+        }
+        
+        var yDirection = coord1.Y < coord2.Y ? 1 : -1;
+        
+        while (currentYValue != coord2.Y)
+        {
+            count += _characters[currentXValue][currentYValue].Amount;
+            currentYValue += yDirection;
+        }
+
+        return count;
     }
 }
 

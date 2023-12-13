@@ -11,9 +11,4 @@ public class Pair: Tuple<Coord, Coord>
     {
         return $"{Item1},{Item2}";
     }
-
-    public int DetermineDistance()
-    {
-        return Math.Abs(Item1.X - Item2.X) + Math.Abs(Item1.Y - Item2.Y);
-    }
 }

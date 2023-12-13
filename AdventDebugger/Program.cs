@@ -5,6 +5,8 @@ using AdventOfCode.Day11;
 using AdventOfCode.DayNine;
 
 // var solution  = SeedSolutionPart2.Parse(File.ReadAllText("input.txt"), null);
-var solution = new GalaxySolution("input.txt");
+var solutionPart1 = new GalaxySolution("input.txt");
+var solution = new GalaxySolutionPart2("input.txt");
 
+Console.WriteLine(solutionPart1.Solve());
 Console.WriteLine(solution.Solve());
