@@ -5,6 +5,7 @@ using AdventOfCode.Day10;
 using AdventOfCode.Day11;
 using AdventOfCode.Day13;
 using AdventOfCode.Day15;
+using AdventOfCode.Day16;
 using AdventOfCode.DayNine;
 
 // var solution  = SeedSolutionPart2.Parse(File.ReadAllText("input.txt"), null);
@@ -13,5 +14,5 @@ using AdventOfCode.DayNine;
 
 // Console.WriteLine(solutionPart1.Solve());
 // Console.WriteLine(solution.Solve());
-new Hasher("input.txt").Solve();
+new Lava("input.txt").Solve();
 // new MirrorSolution("input.txt").Solve();
