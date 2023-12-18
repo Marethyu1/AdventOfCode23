@@ -14,5 +14,6 @@ using AdventOfCode.DayNine;
 
 // Console.WriteLine(solutionPart1.Solve());
 // Console.WriteLine(solution.Solve());
-new Lava("input.txt").Solve();
+Console.WriteLine(new Lava("input.txt").Solve());
+// new Lava("input.txt").SolveMany();
 // new MirrorSolution("input.txt").Solve();
