@@ -4,6 +4,15 @@ public class LavaPart2: ISolution<int>
 {
     private readonly string[] _lines;
 
+    public static HashSet<char> ValidChars = new()
+    {
+        '.',
+        '/',
+        '\\',
+        '|',
+        '-'
+    };
+
     public LavaPart2(string filePath)
     {
         _lines = File.ReadAllLines(filePath);
@@ -69,12 +78,13 @@ public class LavaPart2: ISolution<int>
         return moves;
     }
     
-    private static Grid<Container> Create(string[] lines)
+    public static Grid<Container> Create(IEnumerable<string> lines)
     {
-        var parsedLines = lines.Select(x => x.Select(y => new Container(y))
-                .ToArray())
+
+        var parsedLines = lines.Where(x => x.Length > 2)
+            .Select(x => x.Where(c => ValidChars.Contains(c))
+                .Select(y => new Container(y)).ToArray())
             .ToArray();
-        
         return new Grid<Container>(parsedLines);
     }
     

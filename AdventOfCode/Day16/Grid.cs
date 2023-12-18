@@ -37,12 +37,12 @@ public class Grid<T>
     public override string ToString()
     {
         var rows = Input.Select(x => string.Join("", x));
-        return string.Join("\n", rows);
+        return string.Join("\r\n", rows);
     }
 
     public string Debug(Func<T, string> transform)
     {
         var rows = Input.Select(x => string.Join("", x.Select(transform)));
-        return string.Join("\n", rows);
+        return string.Join("\r\n", rows);
     }
 }
