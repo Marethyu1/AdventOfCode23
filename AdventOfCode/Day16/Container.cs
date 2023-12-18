@@ -4,9 +4,9 @@ public class Container
 {
     public char Value { get; }
 
-    public bool VisitCount => _visits > 0;
-    public bool Visited => _visits > 1;
-    private int _visits = 0;
+    public bool VisitCount => _moves.Count > 0;
+    public bool Visited => Visits > 1;
+    public int Visits = 0;
 
     public bool IsVisited(Move move) => _moves.Contains(move);
 
@@ -19,12 +19,12 @@ public class Container
 
     public override string ToString()
     {
-        if (_visits > 1)
+        if (Visits > 1)
         {
             // return "#";
-            return _visits.ToString();
+            return Visits.ToString();
         } 
-        else if (_visits > 0)
+        else if (Visits > 0)
         {
             return "#";
         }
@@ -34,7 +34,20 @@ public class Container
     public void Visit(Move currentMove)
     {
         _moves.Add(currentMove);
-        _visits++;
-        // Visited = true;
+        Visits++;
+    }
+
+    public string Debug()
+    {
+        if (Visits > 1 && Value == '.')
+        {
+            return "#";
+        } 
+        else if (Visits > 0)
+        {
+            return "#";
+        }
+
+        return ".";
     }
 }

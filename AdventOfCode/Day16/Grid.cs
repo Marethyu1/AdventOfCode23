@@ -39,4 +39,10 @@ public class Grid<T>
         var rows = Input.Select(x => string.Join("", x));
         return string.Join("\n", rows);
     }
+
+    public string Debug(Func<T, string> transform)
+    {
+        var rows = Input.Select(x => string.Join("", x.Select(transform)));
+        return string.Join("\n", rows);
+    }
 }
