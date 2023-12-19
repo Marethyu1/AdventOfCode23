@@ -114,9 +114,14 @@ public static class LavaSolver
                 }
 
             }
+            
+            Console.WriteLine(grid.Debug(y => y.Debug2()));
+            Console.WriteLine();
+            Console.ReadKey();
         }
         
-        Console.WriteLine(grid.Debug(x => x.Debug()));
+        
+        
 
         var count = grid.Input.SelectMany(x => x).Count(x => x.VisitCount);
         return count;

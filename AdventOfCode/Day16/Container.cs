@@ -6,6 +6,8 @@ public class Container
 
     public bool VisitCount => _moves.Count > 0;
     public bool Visited => Visits > 1;
+    
+    private char LastvisitDirection = '.';
     public int Visits = 0;
 
     public bool IsVisited(Move move) => _moves.Contains(move);
@@ -33,6 +35,22 @@ public class Container
 
     public void Visit(Move currentMove)
     {
+        switch (currentMove.Direction)
+        {
+            case Direction.Down:
+                LastvisitDirection = 'v';
+                break;
+            case Direction.Left:
+                LastvisitDirection = '<';
+                break;
+            case Direction.Right:
+                LastvisitDirection = '>';
+                break;
+            case Direction.Up:
+                LastvisitDirection = '^';
+                break;
+        }
+        
         _moves.Add(currentMove);
         Visits++;
     }
@@ -49,5 +67,17 @@ public class Container
         }
 
         return ".";
+    }
+
+    public string Debug2()
+    {
+        if (Value is '\\' or '|' or '-' or '/')
+        {
+            return Value.ToString();
+        }
+
+        
+
+        return Debug();
     }
 }

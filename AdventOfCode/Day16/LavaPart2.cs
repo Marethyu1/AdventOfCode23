@@ -21,11 +21,11 @@ public class LavaPart2: ISolution<int>
     public int Solve()
     {
         var baseGrid = Create(_lines);
-        var moves = GenerateStartingMoves(baseGrid);
-        // var moves = new List<Move>()
-        // {
-            // new Move(new Coord(0, 74), Direction.Down)
-        // };
+        // var moves = GenerateStartingMoves(baseGrid);
+        var moves = new List<Move>()
+        {
+            new Move(new Coord(0, 74), Direction.Down)
+        };
 
         var min = int.MinValue;
         foreach (var move in moves)
