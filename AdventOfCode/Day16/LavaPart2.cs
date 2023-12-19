@@ -1,3 +1,5 @@
+using AdventOfCode.Shared;
+
 namespace AdventOfCode.Day16;
 
 public class LavaPart2: ISolution<int>
@@ -21,16 +23,11 @@ public class LavaPart2: ISolution<int>
     public int Solve()
     {
         var baseGrid = Create(_lines);
-        // var moves = GenerateStartingMoves(baseGrid);
-        var moves = new List<Move>()
-        {
-            new Move(new Coord(0, 74), Direction.Down)
-        };
+        var moves = GenerateStartingMoves(baseGrid);
 
         var min = int.MinValue;
         foreach (var move in moves)
         {
-            
             var grid = Create(_lines);
             var count = LavaSolver.Solve(grid, move);
             
@@ -65,7 +62,7 @@ public class LavaPart2: ISolution<int>
         
         for (var i = 0; i < grid.Input.Length; i++)
         {
-            var move = new Move(new Coord(0, i), Direction.Right);
+            var move = new Move(new Coord(i, 0), Direction.Right);
             moves.Add(move);
         }
         

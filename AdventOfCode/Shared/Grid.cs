@@ -1,8 +1,4 @@
-
-
-using AdventOfCode.Shared;
-
-namespace AdventOfCode.Day16;
+namespace AdventOfCode.Shared;
 
 public class CoordinateOutOfGridException : Exception
 {
@@ -14,7 +10,9 @@ public class CoordinateOutOfGridException : Exception
 
 public class Grid<T>
 {
-    public readonly T[][] Input;
+    private readonly T[][] _input;
+    public long Width => _input[0].Length;
+    public long Height => _input.Length;
 
     public T this[Coord coord]
     {
@@ -22,7 +20,7 @@ public class Grid<T>
         {
             try
             {
-                return Input[coord.X][coord.Y];
+                return _input[coord.X][coord.Y];
             }
             catch (IndexOutOfRangeException e)
             {
@@ -33,18 +31,12 @@ public class Grid<T>
 
     public Grid(T[][] input)
     {
-        Input = input;
+        _input = input;
     }
 
     public override string ToString()
     {
-        var rows = Input.Select(x => string.Join("", x));
-        return string.Join("\r\n", rows);
-    }
-
-    public string Debug(Func<T, string> transform)
-    {
-        var rows = Input.Select(x => string.Join("", x.Select(transform)));
+        var rows = _input.Select(x => string.Join("", x));
         return string.Join("\r\n", rows);
     }
 }

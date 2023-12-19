@@ -1,3 +1,5 @@
+using AdventOfCode.Shared;
+
 namespace AdventOfCode.Day16;
 
 public static class LavaSolver
@@ -10,18 +12,7 @@ public static class LavaSolver
         while (queue.Any())
         {
             var currentMove = queue.Next();
-
-            // if (c < 100)
-            // {
-            //     Console.WriteLine(currentMove);
-            //     Console.WriteLine(grid.Debug(v => v));
-            //     Console.WriteLine(); 
-            // }
-            //
-            // c++;
             
-            
-
             var currentLocation = grid[currentMove.Coord];
 
             if (currentLocation.IsVisited(currentMove))
@@ -30,11 +21,6 @@ public static class LavaSolver
             }
             currentLocation.Visit(currentMove);
             
-            // if (currentLocation.Visits == 2)
-            // {
-            //     Console.WriteLine("woa");
-            // }
-
             if (currentLocation.Value == '.')
             {
                 QueueInDirection(queue, grid, currentMove, currentMove.Direction);
@@ -115,14 +101,9 @@ public static class LavaSolver
 
             }
             
-            Console.WriteLine(grid.Debug(y => y.Debug2()));
-            Console.WriteLine();
-            Console.ReadKey();
         }
         
         
-        
-
         var count = grid.Input.SelectMany(x => x).Count(x => x.VisitCount);
         return count;
     }

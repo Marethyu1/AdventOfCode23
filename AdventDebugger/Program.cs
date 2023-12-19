@@ -6,6 +6,7 @@ using AdventOfCode.Day11;
 using AdventOfCode.Day13;
 using AdventOfCode.Day15;
 using AdventOfCode.Day16;
+using AdventOfCode.Day16_v2;
 using AdventOfCode.DayNine;
 
 // var solution  = SeedSolutionPart2.Parse(File.ReadAllText("input.txt"), null);
@@ -17,5 +18,6 @@ using AdventOfCode.DayNine;
 // new Lava("input.txt").Solve();
 Console.WriteLine(new LavaPart2("input.txt").Solve());
 // Console.WriteLine(new Lava("input.txt").Solve());
+// new LavaSolution("input.txt").SolvePart2();
 // new Lava("input.txt").SolveMany();
 // new MirrorSolution("input.txt").Solve();

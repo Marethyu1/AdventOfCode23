@@ -1,5 +1,6 @@
 using System.Text;
 using AdventOfCode.Day16;
+using AdventOfCode.Shared;
 using Xunit.Abstractions;
 
 namespace AdventOfCodeTests.Day16Tests;
@@ -99,7 +100,7 @@ public class LargeDirectionTests
         }
     }
 
-    private static (Grid<Container> grid, Move move) GetReady(List<string> input)
+    private static (AdventOfCode.Day16.Grid<Container> grid, Move move) GetReady(List<string> input)
     {
         var parsedInput = new List<string>();
         Move move = new Move(new Coord(0, 0), Direction.Up);

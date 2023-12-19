@@ -1,6 +1,6 @@
 using AdventOfCode.Shared;
 
-namespace AdventOfCode.Day16;
+namespace AdventOfCode.Day16_v2;
 
 public record Move(Coord Coord, Direction Direction)
 {

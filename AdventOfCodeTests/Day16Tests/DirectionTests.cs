@@ -1,5 +1,6 @@
 using System.Text;
 using AdventOfCode.Day16;
+using AdventOfCode.Shared;
 using Xunit.Abstractions;
 
 namespace AdventOfCodeTests.Day16Tests;
@@ -22,25 +23,6 @@ public class DirectionTests
         const string expectedOutput = "##########";
         
         Assert.Equal(expectedOutput, SolveForOutput(input));
-    }
-    
-    [Fact]
-    public void CanMoveRightAndDown()
-    {
-        var input = """
-                    >...|.....
-                    ..........
-                    """;
-
-
-        var expectedOutput = """
-                             #####.....
-                             ....#.....
-                             """;
-
-        var output = SolveForOutputSmart(input);
-        
-        Assert.Equal(expectedOutput, output);
     }
 
     [Fact]
@@ -104,26 +86,6 @@ public class DirectionTests
         Assert.Equal(expectedOutput, output);
     }
     
-    [Fact]
-    public void CanMoveLeftOnSlash()
-    {
-        var input = """
-                    ....v.....
-                    ..../.....
-                    ..........
-                    """;
-
-
-        var expectedOutput = """
-                             ....#.....
-                             #####.....
-                             ..........
-                             """;
-
-        var output = SolveForOutput(input, new Move(new Coord(0, 4), Direction.Down));
-        
-        Assert.Equal(expectedOutput, output);
-    }
     
     [Fact]
     public void CanMoveDown()
@@ -167,7 +129,7 @@ public class DirectionTests
         return Solve(input, startMove).ToString();
     }
 
-    private static Grid<Container> Solve(string input, Move startMove)
+    private static AdventOfCode.Day16.Grid<Container> Solve(string input, Move startMove)
     {
         var lava = LavaPart2.Create(input.Split(Environment.NewLine));
         LavaSolver.Solve(lava, startMove);

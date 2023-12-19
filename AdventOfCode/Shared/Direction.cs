@@ -1,4 +1,4 @@
-namespace AdventOfCode.Day16;
+namespace AdventOfCode.Shared;
 
 public enum Direction
 {

@@ -1,3 +1,5 @@
+using AdventOfCode.Shared;
+
 namespace AdventOfCode.Day16;
 
 public class Container

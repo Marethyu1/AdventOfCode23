@@ -81,7 +81,7 @@ public class MazeSolution: ISolution<int>
             Console.WriteLine(next + " wow " + count/2);
             if (next == startCoord)
             {
-                // return count/2;
+                return count/2;
             }
             
         }
