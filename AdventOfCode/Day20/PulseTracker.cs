@@ -13,6 +13,8 @@ public class PulseTracker
         _currentPulse = startingPulse;
         _modules = modules.ToDictionary((k => k.Key), v => v);
         _broadCastModule = _modules[ModuleFactory.BroadCast];
+
+        var terminals = new List<Terminal>();
         
         foreach (var module in _modules.Values)
         {
@@ -25,39 +27,37 @@ public class PulseTracker
                         conjunction.Link(module.Key);
                     }
                 }
-                
+                else
+                {
+                    terminals.Add(new Terminal(outPutModuleKey));
+                }
             }
+        }
+
+        foreach (var terminal in terminals)
+        {
+            _modules[terminal.Key] = terminal;
         }
     }
 
     public void PushButton()
     {
-        // _broadCastModule.Process(_currentPulse);
         var queue = new Queue<(IModule _broadCastModule, Pulse Low, string source)>();
         queue.Enqueue((_broadCastModule, Pulse.Low, "button"));
         var count = 0;
-        // var pulseCounter = new List<Pulse>();
-        Console.WriteLine("---------------------------");
         while (queue.Any())
         {
-            // Console.WriteLine("---------------------------");
             var (currentModule, currentPulse, source) = queue.Dequeue();
             
-            Console.WriteLine($"{source} -{currentPulse}-> {currentModule?.Key}");
             if (currentPulse == Pulse.Low) LowPulses ++;
             if (currentPulse == Pulse.High) HighPulses ++;
-            if (currentModule == null) continue;
-            // Console.WriteLine(currentModule + " : " + _currentPulse);
             
             var nextPulse = currentModule.Process(source, currentPulse);
             if (nextPulse == Pulse.NoSignal) continue;
             
             foreach (var moduleKey in currentModule.OutPutModules)
             {
-                _modules.TryGetValue(moduleKey, out var module);
-                
-                // Console.WriteLine($"\t{module}:{nextPulse}");
-                queue.Enqueue((module, nextPulse, currentModule.Key));
+                queue.Enqueue((_modules[moduleKey], nextPulse, currentModule.Key));
             }
             count++;
         }

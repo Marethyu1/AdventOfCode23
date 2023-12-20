@@ -13,6 +13,7 @@ public class PulseSolution: ISolution<long>
         _pulseTracker = new PulseTracker(Pulse.Low, modules);
     }
     
+    
     public long Solve()
     {
         for (var i = 0; i < 1000; i++)
