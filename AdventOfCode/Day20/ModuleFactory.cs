@@ -27,6 +27,10 @@ public static class ModuleFactory
                 .Select(x => x.Trim()).ToArray();
 
             var moduleKey = sides[0];
+            if (key == BroadCast)
+            {
+                moduleKey = BroadCast;
+            }
             var outPutModules = sides[1].Split(",")
                 .Select(x => x.Trim());
 

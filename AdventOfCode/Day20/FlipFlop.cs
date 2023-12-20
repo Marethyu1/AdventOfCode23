@@ -1,9 +1,13 @@
+using System.Diagnostics;
+
 namespace AdventOfCode.Day20;
 
 public class FlipFlop: IModule
 {
     public IEnumerable<string> OutPutModules { get; }
     public string Key { get; }
+
+    private ModuleState _state = ModuleState.Off;
     
     public FlipFlop(string key, IEnumerable<string> outPutModules)
     {
@@ -11,9 +15,22 @@ public class FlipFlop: IModule
         Key = key;
     }
 
-    public void Process(Pulse pulse)
+    public Pulse Process(string currentModuleKey, Pulse pulse)
     {
-        throw new NotImplementedException();
+        if (pulse == Pulse.High)
+        {
+            return Pulse.NoSignal;
+        }
+        
+        var previousState = _state;
+        
+        _state = _state.Toggle();
+        Debug.Assert(previousState != _state);
+        if (previousState == ModuleState.Off)
+        {
+            return Pulse.High;
+        }
+        return Pulse.Low;
     }
 
     public override string ToString()

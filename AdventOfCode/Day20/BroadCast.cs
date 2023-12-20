@@ -11,9 +11,9 @@ public class BroadCast: IModule
         Key = key;
     }
     
-    public void Process(Pulse pulse)
+    public Pulse Process(string currentModuleKey, Pulse pulse)
     {
-        throw new NotImplementedException();
+        return pulse;
     }
 
     public override string ToString()
