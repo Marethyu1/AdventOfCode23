@@ -17,7 +17,7 @@ using AdventOfCode.DayNine;
 // Console.WriteLine(solutionPart1.Solve());
 // Console.WriteLine(solution.Solve());
 // new Lava("input.txt").Solve();
-new PulseSolution("input.txt").Solve();
+new PulseSolution("input.txt").SolvePart2();
 // Console.WriteLine(new Lava("input.txt").Solve());
 // new LavaSolution("input.txt").SolvePart2();
 // new Lava("input.txt").SolveMany();

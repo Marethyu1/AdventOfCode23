@@ -15,9 +15,18 @@ public class Conjunction: IModule
     
     public Pulse Process(string currentModuleKey, Pulse pulse)
     {
+        if (currentModuleKey == "tf" && pulse == Pulse.High)
+        {
+            throw new Exception("ohno");
+        }
         _memory[currentModuleKey] = pulse;
         return _memory.Values.All(p => p == Pulse.High) ? Pulse.Low : Pulse.High;
     }
+    
+    //vq 4006
+    // ln 4090
+    // db 3928
+    // tf 3922
 
     public void Link(string key)
     {

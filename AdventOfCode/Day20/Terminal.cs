@@ -3,6 +3,8 @@ namespace AdventOfCode.Day20;
 public class Terminal: IModule
 {
     public IEnumerable<string> OutPutModules { get; }
+
+    public Func<Pulse, Pulse> CustomProcess = pulse => Pulse.NoSignal;
     public string Key { get; }
 
     public Terminal(string key)
@@ -12,10 +14,6 @@ public class Terminal: IModule
     }
     public Pulse Process(string currentModuleKey, Pulse pulse)
     {
-        // if (pulse == Pulse.Low)
-        // {
-        //     throw new Exception();
-        // }
-        return Pulse.NoSignal;
+        return CustomProcess(pulse);
     }
 }

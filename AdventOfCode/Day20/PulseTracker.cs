@@ -7,14 +7,14 @@ public class PulseTracker
     public long LowPulses = 0;
     public long HighPulses = 0;
     private IModule _broadCastModule;
+    private readonly Terminal _terminal;
+    
 
     public PulseTracker(Pulse startingPulse, IEnumerable<IModule> modules)
     {
         _currentPulse = startingPulse;
         _modules = modules.ToDictionary((k => k.Key), v => v);
         _broadCastModule = _modules[ModuleFactory.BroadCast];
-
-        var terminals = new List<Terminal>();
         
         foreach (var module in _modules.Values)
         {
@@ -29,15 +29,17 @@ public class PulseTracker
                 }
                 else
                 {
-                    terminals.Add(new Terminal(outPutModuleKey));
+                    _terminal = new Terminal(outPutModuleKey);
                 }
             }
         }
 
-        foreach (var terminal in terminals)
-        {
-            _modules[terminal.Key] = terminal;
-        }
+        _modules[_terminal.Key] = _terminal;
+    }
+    
+    public void SetEndState(Func<Pulse, Pulse> func)
+    {
+        _terminal.CustomProcess = func;
     }
 
     public void PushButton()
