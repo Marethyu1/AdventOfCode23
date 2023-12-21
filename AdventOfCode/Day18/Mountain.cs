@@ -71,13 +71,13 @@ public class Mountain: Grid<Cell>
             var cell = this[currentCoord];
             if (cell.SpaceType is SpaceType.RoundRock)
             {
-                var nextCord = Next(currentCoord, direction);
+                var nextCord = currentCoord.NextCoord(direction);
                 while (InBounds(nextCord) && this[nextCord].SpaceType == SpaceType.Empty)
                 {
                     this[nextCord] = cell;
                     this[currentCoord] = new Cell((char)SpaceType.Empty);
                     currentCoord = nextCord;
-                    nextCord = Next(nextCord, direction);
+                    nextCord = nextCord.NextCoord(direction);
                 }
             }
         }
