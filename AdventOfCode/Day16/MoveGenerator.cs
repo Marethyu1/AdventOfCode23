@@ -15,10 +15,10 @@ public static class MoveGenerator
     {
         return move.Direction switch
         {
-            Direction.Up => new Coord(move.Coord.X - 1, move.Coord.Y),
-            Direction.Down => new Coord(move.Coord.X + 1, move.Coord.Y),
-            Direction.Left => new Coord(move.Coord.X, move.Coord.Y - 1),
-            Direction.Right => new Coord(move.Coord.X, move.Coord.Y + 1),
+            Direction.Up => new Coord(move.Coord.R - 1, move.Coord.C),
+            Direction.Down => new Coord(move.Coord.R + 1, move.Coord.C),
+            Direction.Left => new Coord(move.Coord.R, move.Coord.C - 1),
+            Direction.Right => new Coord(move.Coord.R, move.Coord.C + 1),
             _ => throw new ArgumentOutOfRangeException(nameof(move.Direction), move.Direction, null)
         };
     }

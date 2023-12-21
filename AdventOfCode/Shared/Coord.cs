@@ -1,13 +1,12 @@
 namespace AdventOfCode.Shared;
 
-public record Coord(int X, int Y)
+public record Coord(int R, int C)
 {
-    public readonly int X = X;
-    public readonly int Y = Y;
+    public readonly int R = R;
+    public readonly int C = C;
 
     public override string ToString()
     {
-        return $"({X},{Y})";
+        return $"({R},{C})";
     }
-    
 }

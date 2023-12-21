@@ -22,7 +22,7 @@ public class Grid<T>
         {
             try
             {
-                return Input[coord.X][coord.Y];
+                return Input[coord.R][coord.C];
             }
             catch (IndexOutOfRangeException e)
             {

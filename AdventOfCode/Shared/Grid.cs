@@ -10,9 +10,9 @@ public class CoordinateOutOfGridException : Exception
 
 public class Grid<T>
 {
-    private readonly T[][] _input;
-    public long Width => _input[0].Length;
-    public long Height => _input.Length;
+    internal readonly T[][] Input;
+    public long Width => Input[0].Length;
+    public long Height => Input.Length;
 
     public T this[Coord coord]
     {
@@ -20,7 +20,7 @@ public class Grid<T>
         {
             try
             {
-                return _input[coord.X][coord.Y];
+                return Input[coord.R][coord.C];
             }
             catch (IndexOutOfRangeException e)
             {
@@ -28,15 +28,20 @@ public class Grid<T>
             }
         }
     }
+    
+    public bool InBounds(Coord coord)
+    {
+        return coord.R >= 0 && coord.R < Input.Length && coord.C >=0 && coord.C < Input[0].Length; 
+    }
 
     public Grid(T[][] input)
     {
-        _input = input;
+        Input = input;
     }
 
     public override string ToString()
     {
-        var rows = _input.Select(x => string.Join("", x));
+        var rows = Input.Select(x => string.Join("", x));
         return string.Join("\r\n", rows);
     }
 }
