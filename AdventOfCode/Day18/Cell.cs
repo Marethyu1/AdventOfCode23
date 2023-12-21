@@ -9,17 +9,16 @@ public enum SpaceType
 
 public class Cell
 {
-    private readonly char _value;
-    public SpaceType SpaceType { get; }
+    public char Value { get; set; }
+    public SpaceType SpaceType => (SpaceType) Value;
 
     public Cell(char value)
     {
-        _value = value;
-        SpaceType = (SpaceType) value;
+        Value = value;
     }
 
     public override string ToString()
     {
-        return $"{_value}";
+        return $"{Value}";
     }
 }

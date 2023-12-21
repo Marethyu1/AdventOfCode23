@@ -4,13 +4,68 @@ namespace AdventOfCode.Day18;
 
 public class Mountain: Grid<Cell>
 {
+    private Dictionary<Direction, Coord[]> Lookup;
     public Mountain(Cell[][] input) : base(input)
     {
+        var upCoords = new List<Coord>();
+        var leftCords = new List<Coord>();
+        for (var r = 0; r < input.Length; r++)
+        {
+            for (var c = 0; c < input[0].Length; c++)
+            {
+                upCoords.Add(new Coord(r, c));
+                leftCords.Add(new Coord(c, r));
+            }
+        }
         
+        var downCords = new List<Coord>();
+        var rightCords = new List<Coord>();
+        for (var r = input.Length -1; r >= 0; r--)
+        {
+            for (var c = input[0].Length -1; c >= 0 ; c--)
+            {
+                downCords.Add(new Coord(r, c));
+                rightCords.Add(new Coord(c, r));
+            }
+        }
+        
+        foreach (var coord in downCords)
+        {
+            Console.WriteLine(coord);
+        }
+
+        Lookup = new()
+        {
+            [Direction.Up] = upCoords.ToArray(),
+            [Direction.Right] = rightCords.ToArray(),
+            [Direction.Left] = leftCords.ToArray(),
+            [Direction.Down] = downCords.ToArray(),
+            
+        };
     }
 
     public void Tilt(Direction direction)
     {
+
+        foreach (var coord in Lookup[direction])
+        {
+            var currentCoord = coord;
+            var cell = this[currentCoord];
+            if (cell.SpaceType is SpaceType.RoundRock)
+            {
+                    
+                var nextCord = currentCoord.NextCoord(direction);
+                while (InBounds(nextCord) && this[nextCord].SpaceType == SpaceType.Empty)
+                {
+                    this[nextCord] = cell;
+                    this[currentCoord] = new Cell((char)SpaceType.Empty);
+                    currentCoord = nextCord;
+                    nextCord = nextCord.NextCoord(direction);
+                }
+            }
+        }
+        return;
+        
         var startRow = 0;
         var startCol = 0;
         var endRow = Input.Length;
@@ -55,19 +110,7 @@ public class Mountain: Grid<Cell>
             while (c != endCol)
             {
                 var currentCoord = toCoord(r, c);
-                var cell = this[currentCoord];
-                if (cell.SpaceType is SpaceType.RoundRock)
-                {
-                    
-                    var nextCord = currentCoord.NextCoord(direction);
-                    while (InBounds(nextCord) && this[nextCord].SpaceType == SpaceType.Empty)
-                    {
-                        this[nextCord] = cell;
-                        this[currentCoord] = new Cell((char)SpaceType.Empty);
-                        currentCoord = nextCord;
-                        nextCord = nextCord.NextCoord(direction);
-                    }
-                }
+                
                 
                 c += dir;
             }

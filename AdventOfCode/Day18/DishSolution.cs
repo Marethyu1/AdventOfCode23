@@ -52,6 +52,7 @@ public class DishSolution: ISolution<long>
             _mountain.Tilt(Direction.Right);
         }
         
+        Console.WriteLine(_mountain);
         Console.WriteLine(_mountain.Load());
         return _mountain.Load();
     }
