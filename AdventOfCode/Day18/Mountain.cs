@@ -4,7 +4,12 @@ namespace AdventOfCode.Day18;
 
 public class Mountain: Grid<Cell>
 {
-    private Dictionary<Direction, Coord[]> Lookup;
+    private readonly Dictionary<Direction, Coord[]> _lookup;
+
+    private readonly Coord[,] _nextUp;
+    private readonly Coord[,] _nextLeft;
+    private readonly Coord[,] _nextRight;
+    private readonly Coord[,] _nextDown;
     public Mountain(Cell[][] input) : base(input)
     {
         var upCoords = new List<Coord>();
@@ -29,38 +34,50 @@ public class Mountain: Grid<Cell>
             }
         }
         
-        foreach (var coord in downCords)
-        {
-            Console.WriteLine(coord);
-        }
 
-        Lookup = new()
+        _lookup = new()
         {
             [Direction.Up] = upCoords.ToArray(),
             [Direction.Right] = rightCords.ToArray(),
             [Direction.Left] = leftCords.ToArray(),
             [Direction.Down] = downCords.ToArray(),
-            
         };
+
+
+        _nextRight = new Coord[Input.Length, Input.Length];
+        _nextLeft = new Coord[Input.Length, Input.Length];
+        _nextUp = new Coord[Input.Length, Input.Length];
+        _nextDown = new Coord[Input.Length, Input.Length];
+        
+        
+        foreach (var cord in upCoords)
+        {
+            _nextRight[cord.R, cord.C] = cord.NextCoord(Direction.Right);
+            _nextLeft[cord.R, cord.C] = cord.NextCoord(Direction.Left);
+            _nextUp[cord.R, cord.C] = cord.NextCoord(Direction.Up);
+            _nextDown[cord.R, cord.C] = cord.NextCoord(Direction.Down);
+        }
+
+        
+        
     }
 
     public void Tilt(Direction direction)
     {
 
-        foreach (var coord in Lookup[direction])
+        foreach (var coord in _lookup[direction])
         {
             var currentCoord = coord;
             var cell = this[currentCoord];
             if (cell.SpaceType is SpaceType.RoundRock)
             {
-                    
-                var nextCord = currentCoord.NextCoord(direction);
+                var nextCord = Next(currentCoord, direction);
                 while (InBounds(nextCord) && this[nextCord].SpaceType == SpaceType.Empty)
                 {
                     this[nextCord] = cell;
                     this[currentCoord] = new Cell((char)SpaceType.Empty);
                     currentCoord = nextCord;
-                    nextCord = nextCord.NextCoord(direction);
+                    nextCord = Next(nextCord, direction);
                 }
             }
         }
@@ -119,6 +136,28 @@ public class Mountain: Grid<Cell>
         }
         
        
+    }
+
+    private Coord Next(Coord coord, Direction direction)
+    {
+        if (direction == Direction.Down)
+        {
+            return _nextDown[coord.R, coord.C];
+        }
+        if (direction == Direction.Up)
+        {
+            return _nextRight[coord.R, coord.C];
+        }
+        if (direction == Direction.Left)
+        {
+            return _nextLeft[coord.R, coord.C];
+        }
+        if (direction == Direction.Right)
+        {
+            return _nextRight[coord.R, coord.C];
+        }
+
+        throw new Exception("uhoh");
     }
 
     public long Load()
